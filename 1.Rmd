@@ -1,0 +1,643 @@
+---
+title: "EXPLORATORY DATA ANALYSIS"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Reading Bigger Data Files using read.csv() Command.
+```{r}
+d2 = read.csv(file.choose())
+d2
+```
+
+Getting information of an Object using summary() command.
+```{r}
+
+summary(d2)
+
+```
+
+Use of names() and dimnames() command to view the column and row elements of an Object.
+```{r}
+rownames(d2)
+colnames(d2)
+plot(d2)
+```
+Summarizing samples: 
+
+
+```{r}
+list(d2)
+length(d2)
+head(d2)
+tail(d2)
+str(d2)
+d2$Sp_defence
+d2$d2
+
+cbind(d2)
+dimnames(d2)
+names(d2)
+mean(d2$Attack)
+max(d2$HP)
+quantile(d2$Sp_attack)
+fivenum(d2$Defence)
+```
+
+Cumulative statistics:
+```{r}
+cumsum(d2$HP)
+head(cumsum(d2$Total))
+head(cumsum(d2$Attack))
+head(cumsum(d2$Defence))
+head(cumsum(d2$Sp_attack))
+head(cumsum(d2$Sp_defence))
+head(cumsum(d2$Speed))
+
+
+cummax(d2$HP)
+head(cummax(d2$Total))
+head(cummax(d2$Attack))
+head(cummax(d2$Defence))
+head(cummax(d2$Sp_attack))
+head(cummax(d2$Sp_defence))
+head(cummax(d2$Speed))
+
+cummin(d2$HP)
+cummin(d2$Attack)
+cummin(d2$Defence)
+cummin(d2$Sp_attack)
+cumprod(d2$HP)
+seq_along(d2)
+seq(from = 1, to = 5, by =2)
+cumsum(d2$HP) / seq_along(d2) 
+md = seq_along(d2)
+md
+mean(d2[,2])
+mean(d2[2,])
+
+table(d2$HP)
+d.mat = as.matrix(d2)
+d.mat
+
+plot(d2$HP)
+plot(d2$Total)
+plot(d2$Attack)
+plot(d2$Defence)
+plot(d2$Sp_attack)
+plot(d2$Sp_defence)
+plot(d2$Speed)
+
+plot(md)
+
+
+
+stem(d2$HP)
+stem(d2$Total)
+stem(d2$Attack)
+stem(d2$Defence)
+stem(d2$Sp_attack)
+stem(d2$Sp_defence)
+stem(d2$Speed)
+stem(d2$HP, scale =2)
+
+hist(d2$HP)
+hist(d2$Total)
+hist(d2$Attack)
+hist(d2$Defence)
+hist(d2$Sp_attack)
+hist(d2$Sp_defence)
+hist(d2$Speed)
+hist(d2$HP, breaks = 'Sturges')
+hist(d2$HP, breaks = 'Scott')
+hist(d2$HP, breaks = 'FD')
+hist(d2$HP, breaks = 'st')
+```
+
+
+```{r}
+hist(d2$HP, breaks = 'sc')
+hist(d2$HP, breaks = 7)
+hist(d2$HP, col = 'gray75', main = NULL, xlab = 'Size class of d', ylim = c(0,0.1), freq = FALSE)
+dens = density(d2$HP)
+dens
+```
+
+The class() command to know the type of object.
+
+```{r}
+class(d2)
+class(dimnames(d2))
+
+class(d2$HP)
+```
+
+The str() command to examine the structure of an object.
+
+```{r}
+
+
+str(d2)
+str(d2$HP)
+structure(head(d2))
+ls.str(pattern = 'd2')
+
+attach(head(d2))
+stack(head(d2))
+
+dimnames(d2)[[1]]
+dimnames(d2)[[2]]
+head(d2, n=10)
+
+```
+
+Simple math:
+
+```{r}
+search()
+sin(d2$HP)
+cos(head(d2$HP))
+factorial(head(d2$HP))
+abs(head(d2$HP))
+sqrt(head(d2$HP))
+tan(head(d2$HP))
+asin(head(d2$HP))
+```
+
+Viewing Previously Loaded Named-Objects.
+
+```{r}
+
+ls()
+ls(pattern = 'v')
+ls(pattern = 'da')
+
+
+```
+
+
+```{r}
+var(head(d2$HP))
+median(d2$HP)
+mode(d2$HP)
+```
+
+Selecting and Displaying Parts of a Object.
+
+```{r}
+head(d2[1])
+head(d2[1:4])
+head(d2[-1])
+head(d2[d2>7])
+head(d2[d2<5 | d2>10],n=10)
+head(d2[d2<5 | d2>10])
+
+d2[100,8]
+d2[150,1:6]
+```
+
+Sorting and Rearranging a Object.
+
+```{r}
+
+sort(head(d2$HP))
+sort(head(d2$HP), decreasing = TRUE)
+sort(head(d2$HP),na.last = NA)
+sort(head(d2$HP),na.last = TRUE)
+sort(head(d2$HP),na.last = FALSE)
+
+order(d2$HP)
+rank(d2)
+rank(d2$HP)
+
+```
+
+
+```{r}
+head(d2[5])
+with(d2, sum(Defence))
+sd(d2$HP)
+```
+
+Summarizing rows and columns:
+```{r}
+mad(d2$Defence)
+apply(head(d2),1, mean, na.rm=TRUE)
+apply(head(d2),1, median, na.rm=TRUE)
+is.table(d2)
+addmargins(head(d2),1, mean)
+addmargins(head(d2),1, median)
+View(head(d2))
+nrow((d2))
+ncol(d2)
+sum(is.na(d2))
+
+structure(head(d2))
+table(head((d2$Speed)))
+plot(density(d2$HP))
+```
+
+Drawing distribution and Graphics:
+```{r}
+hist(d2$HP, freq = F, col= 'blue')
+lines(density(d2$HP), lty= 2)
+lines(density(d2$HP, k='rectangular'))
+rnorm(20, mean=5, sd= 1)
+pnorm(20, mean=5, sd= 1)
+qnorm(0.5, 5, 1)
+dnorm(c(7,8,9),mean=5, sd=1)
+qnorm(c(3.5,0.75),mean=5, sd=1)
+d2.norm=rnorm(1000,mean(d2$HP), sd(d2$HP))
+head(d2.norm)
+hist(d2$HP, freq = F, col= 'pink')
+lines(density(d2.norm))
+hist(d2.norm, freq = F, col= 'pink')
+lines(density(d2$HP))
+hist(d2.norm,freq = F,border = 'red',col='blue',main = 'comparing two distributions',xlab = 'data size classes')
+lines(density(d2$HP), lwd= 2)
+qqnorm(d2$HP)
+qqnorm(d2$HP, main = 'QQ plot of example data', xlab = 'Theoretical',ylab = 'Quantiles for d2')
+qqline(d2$HP, lwd = 2, lty = 2)
+qqp = qqplot(d2$HP, rnorm(50,5,2))
+qqp
+abline(lm(qqp$y ~ qqp$x))
+```
+
+Testing distribution:
+```{r}
+sample(head(d2),size = 4)
+set.seed(4)
+sample(head(df), size = 3)
+shapiro.test(d2$HP)
+ks.test(d2$HP, 'pnorm',mean=5,sd=2)
+ks.test(d2$HP, pnorm(20,5,2))
+```
+
+T-test:
+```{r}
+t.test(d2$HP, d2$Attack)
+t.test(d2$HP, d2$Attack, var.equal = TRUE)
+t.test(d2$HP, mu = 10)
+t.test(d2$HP, mu = 1000, alternative = 'greater')
+```
+
+U-test:
+```{r}
+wilcox.test(d2$HP, d2$Attack)
+wilcox.test(d2$HP, exact = FALSE)
+wilcox.test(d2$HP, mu = 8, exact = FALSE, conf.int = TRUE, alt = 'less')
+```
+
+Correlation and Covariance:
+```{r}
+cor(d2$Defence, d2$Attack)
+cor(d2$Attack, d2$Defence, method = 'spearman')
+cor(d2$Attack, d2$Defence, method = 'kendall')
+cov(d2$Attack, d2$Defence)
+```
+
+
+Correlation hypothesis tests:
+```{r}
+cor.test(d2$Attack, d2$Defence)
+```
+
+Association tests:
+```{r}
+chisq.test(d2$Attack)
+chisq.test(d2$HP, correct = FALSE)
+d2.cs = chisq.test(d2$Attack, p = d2$Defence, rescale.p = TRUE)
+d2.cs
+head(d2.cs$exp)
+names(d2.cs$expected) = row.names(d2)
+head(d2.cs$exp)
+(honey.cs = chisq.test(d2$Attack))
+names(honey.cs)
+(honey.cs = chisq.test(d2$Attack, simulate.p.value = TRUE, B = 3000))
+d2[1:2, 4:5]
+chisq.test(d2[1:2, 4:5], correct = FALSE)
+chisq.test(d2[1:2, 4:5], correct = TRUE)
+with(d2, chisq.test(Attack, p = Defence, rescale = T))
+with(d2, chisq.test(Attack, p =Defence , rescale = T, sim = T))
+chisq.test(d2$Attack)
+```
+
+Box-whisker plots:
+
+```{r}
+boxplot(d2$Attack)
+boxplot(d2$Attack, d2$Defence)
+boxplot(d2$Attack, d2$Defence, names = c('Attack', 'Defence'))
+title(xlab = 'Variable', ylab = 'Value')
+boxplot(d2$Attack, d2$Defence, names = c('Attack', 'Defence'), range = 0,
+xlab = 'Variable', ylab = 'Value', col = 'yellow')
+boxplot(d2$Attack, d2$Defence, d2$HP, names = c('Attack', 'Defence', 'HP'),
+range = 0, xlab = 'variable', ylab = 'value', col = 'pink')
+```
+
+Scatter plots:
+
+```{r}
+plot(d2$Attack, d2$Defence, pch = "+")
+
+plot(d2$Attack, d2$Defence, xlab = 'Attack', ylab = 'Defence', pch = 10, cex = 2, col = 'blue', xlim = c(0, 500), ylim = c(0, 500))
+
+plot(Defence ~ Attack, data = d2)
+abline(lm(Defence ~ Attack, data = d2))
+
+plot(Defence ~ Attack, data = d2)
+abline(lm(d2$Attack ~ d2$Defence, data = d2), lty = 'dotted', lwd = 2, col = 'green')
+
+plot(d2$Attack ~ d2$Defence, data = d2, xlab = 'Attack', ylab = 'Defence',
+pch = 10, cex = 2, col = 'gray50', xlim = c(0, 500), ylim = c(0, 500))
+abline(lm(d2$Attack ~ d2$Defence, data = d2), lty = 'dotted', lwd = 2, col = 'blue')
+
+plot(d2$Attack, type = 'l')
+
+with(d2, plot(Attack, HP, type = 'c'))
+with(d2[order(d2$Attack),], plot(sort(Attack), HP, type = 'c'))
+
+plot(d2$Attack, type = 'b')
+```
+
+Multiple correlation plots:
+
+```{r}
+pairs(~ Defence + Attack + HP, data = d2)
+
+pairs(~ d2$Attack + d2$HP + d2$Defence, data = d2, col ='brown', cex = 5, pch = 'X')
+```
+
+Pie charts:
+```{r}
+pie(d2$HP, labels = d2$Total)
+ 
+ pc = c('gray40', 'gray50', 'gray60', 'gray70', 'gray80', 'gray90')
+ pie(head(d2$HP, labels = d2$Attack, col = pc, clockwise = TRUE, init.angle = 180))
+ 
+ pc = c('gray65', 'gray70', 'gray75', 'gray80', 'gray85', 'gray90')
+ pie(head(d2$Attack, labels = row.names(d2), col = pc, cex = 1.2))
+ 
+ d2[1,]
+```
+
+
+Cleveland dot charts:
+
+```{r}
+dotchart(d2$Attack)
+ dotchart(t(d2$HP))
+ 
+ #Bar charts:
+```
+
+Bar charts:
+```{r}
+barplot(d2$Attack)
+ barplot(head(d2$Defence))
+ 
+ 
+barplot(head(d2$Attack))
+title(xlab = 'variable', ylab = 'value')
+
+barplot(head(d2$Attack), xlab = 'variable', ylab = 'value', ylim = c(0,500),col = 'lightblue')
+ abline(h = seq(1,9,2), lty = 2, lwd = 0.5, col = 'gray40')
+ box()
+ 
+ table(head(d2$Defence))
+ 
+barplot(table(head(d2$Attack)), ylab = 'variable', xlab = 'value')
+abline(h = 0)
+
+barplot(head(d2$Attack, beside = TRUE, ylab = 'variable', xlab = 'value'))
+
+barplot(t(head(d2$Attack)), beside = TRUE, legend = TRUE, cex.names = 0.8,col = c('black', 'pink', 'lightblue', 'tan', 'red', 'brown'))
+title(ylab = 'variable', xlab = 'value')
+
+bccol = c('black', 'pink', 'lightblue', 'tan', 'red', 'brown')
+barplot(head(d2$Attack), beside = TRUE, legend = TRUE, horiz = TRUE,xlim = c(0, 60), col = bccol)
+title(ylab = 'variable', xlab = 'vaule')
+
+
+```
+
+Analysis of variance (ANOVA):
+```{r}
+bfs.aov = aov(d2$Attack ~ d2$Defence, data = d2)
+bfs.aov
+
+summary(bfs.aov)
+
+model.tables(bfs.aov, type = 'means')
+
+pw.aov = aov(d2$Attack ~ d2$Defence+ d2$Sp_attack, data = d2)
+pw.aov = aov(d2$Attack ~d2$Defence * d2$Defence, data = d2)
+pw.aov
+pw.aov = aov(d2$Attack ~ d2$Defence + d2$Sp_attack + Attack:Defence, data = d2)
+pw.aov
+
+summary(pw.aov)
+
+pw.aov = aov(d2$Attack ~ d2$Defence * d2$Sp_attack, data = d2)
+boxplot(d2$Attack ~ d2$Defence * d2$Sp_attack,  data = d2, cex.axis =0.9)
+title(xlab = 'varaible', ylab = 'value')
+
+
+```
+
+Interaction plots:
+```{r}
+interaction.plot(d2$Attack, d2$Defence, d2$Sp_attack)
+
+attach(d2)
+interaction.plot(d2$HP, d2$Attack, d2$Defence, type = 'b')
+detach(d2)
+
+interaction.plot(d2$HP, d2$Attack, d2$Defence, type = 'b', pch = 3:1)
+
+interaction.plot(d2$HP, d2$Attack, d2$Defence, type = 'b', pch = 3:1, lty = 3:1,
+col = c('red', 'blue', 'darkgreen'))
+
+interaction.plot(d2$HP, d2$Attack, d2$Defence, type = 'b', pch = 3:1, fun = median)
+
+interaction.plot(d2$HP, d2$Attack, d2$Defence, type = 'b', pch = 3:1,
+xlab = 'variable', ylab = 'value',
+main = 'Interaction plot')
+
+head(replications(d2))
+
+d.df=data.frame(d2$HP,d2$Attack)
+head(d.df)
+```
+
+Summarize using a grouping variable:
+```{r}
+head(aggregate(d2[2:5], by = list(d2$Attack), FUN = sum))
+
+head(aggregate(d2$Attack ~ d2$Defence, data = d2, FUN = mean))
+
+head(aggregate(cbind(d2$Attack, d2$Defence) ~ d2$Sp_attack, data = d2, FUN = mean))
+
+head(aggregate(. ~ d2$Defence, data = d2, FUN = mean))
+
+pw.agg = aggregate(d2$Attack ~ d2$Defence * d2$Sp_attack * d2$HP, data = d2, FUN = mean)
+head(pw.agg)
+
+head(aggregate(d2$Attack ~ . , data = d2, FUN = mean))
+
+head(aggregate(d2$HP ~ 1 , data = d2, FUN = mean))
+```
+
+Curvilinear regression:
+
+```{r}
+lm(d2$HP ~ d2$Attack, data = d2)
+
+fw.lm = lm(d2$HP ~ d2$Attack, data = d2)
+summary(fw.lm)
+
+fw.lm$rank
+
+coef(fw.lm)
+
+ confint(fw.lm)
+ 
+ confint(fw.lm, parm = c('(Intercept)', 'HP'), level = 0.9)
+ 
+head(fitted(fw.lm))
+
+head(residuals(fw.lm))
+
+formula(fw.lm)
+
+fw.lm$cal
+
+plot(d2$Attack, d2$HP)
+plot(~ d2$Attack + d2$Defence, data = d2)
+plot(d2$Attack ~ d2$Sp_defence, data = d2)
+abline(lm(d2$HP ~ d2$Attack, data = d2))
+abline(a = coef(fw.lm[1], b = coef(fw.lm[2])))
+abline(coef(fw.lm))
+
+anova(fw.lm)
+
+
+mf.lm = lm(d2$HP ~ d2$Attack, data = d2)
+mf.lm
+
+pb.lm = lm(d2$HP ~ d2$Attack, data = d2)
+pb.lm
+
+mf.lm = lm(d2$HP ~ 1, data = d2)
+pb.lm = lm(d2$HP ~ 1, data = d2)
+mf.lm
+pb.lm
+
+add1(mf.lm, scope = d2)
+
+mf.lm = lm(d2$HP ~ d2$Attack, data = d2)
+mf.lm
+
+mf.lm = lm(d2$HP ~ d2$Attack + d2$Defence, data = d2)
+summary(mf.lm)
+
+mf.lm = lm(d2$HP ~ d2$Attack, data = d2)
+mf.lm
+
+mf.lm1 = lm(d2$Attack ~ d2$HP, data = d2)
+mf.lm2 = lm(d2$Attack ~ ., data = d2)
+anova(mf.lm1,mf.lm2)
+
+pg.lm = lm(d2$HP ~ log(d2$Attack), data = d2)
+summary(pg.lm)
+
+ bbel.lm = lm(d2$HP ~ d2$Attack + I(Attack^2), data = d2)
+ bbel.lm
+
+plot(d2$Attack ~ d2$Defence, data = d2)
+plot(d2$Attack ~ d2$Sp_attack, data = d2)
+lines(d2$Attack, fitted(pg.lm))
+lines(d2$Defence, fitted(bbel.lm))
+
+head(predict(mf.lm))
+
+prd = predict(mf.lm, interval = 'confidence', level = 0.95)
+
+attach(d2)
+prd = data.frame(prd, d2)
+detach(d2)
+
+prd = data.frame(prd)
+prd$d2 = d2$d2
+head(prd)
+
+plot(d2$HP ~ d2$Attack, data =d2) # basic plot
+lines(prd$HP, prd$fit) # also best fit
+lines(prd$Attack, prd$lwr, lty = 2) # lower CI
+lines(prd$Defence, prd$upr, lty = 2) # upper CI
+
+mf.lm = lm(d2$Attack ~ d2$Defence + d2$Sp_attack, data = d2)
+plot(mf.lm)
+
+bf.m = apply(d2, 2, mean, na.rm = TRUE)
+
+bf.sd = apply(d2, 2, sd, na.rm = TRUE)
+```
+
+Bar Graphs Using ggplot() with geom_col()
+
+```{r}
+library(gcookbook)
+library(dplyr)
+library(ggplot2)
+ggplot(d2, aes(x = d2$Defence, y = d2$Sp_attack)) + geom_col()
+
+ggplot(d2, aes(x = d2$HP, y = d2$Attack)) + geom_col(fill = "yellow", colour = "black")
+
+ggplot(d2, aes(x = d2$HP, y =d2$Attack, fill = HP)) + geom_col(position = "dodge")
+```
+
+Bar Graphs Using ggplot() with geom_bar()
+```{r}
+ggplot(d2, aes(x = Attack)) + geom_bar()
+```
+
+Using Colors in a Bar Graph:
+```{r}
+a2 <- d2 %>% arrange(desc(Attack)) %>% slice(1:10)
+a2
+
+```
+
+Adjusting Bar Width and Spacing:
+
+```{r}
+ggplot(d2, aes(x = Attack, y = Defence)) + geom_col(width = 0.5)
+
+ggplot(d2, aes(x = Attack, y = HP)) + geom_col(width = 1)
+
+ggplot(d2, aes(x = Attack, y = HP, fill = Attack)) + geom_col(width = 0.5, position = "dodge")
+
+ggplot(d2, aes(x = Attack, y =HP, fill = Attack)) +geom_col(width = 0.5, position = position_dodge(0.7))
+
+ggplot(d2, aes(x = Attack, y = HP, fill = Attack)) +geom_col() + guides(fill = guide_legend(reverse = TRUE))
+
+ggplot(d2, aes(x = Attack, y = HP, fill = Attack)) + geom_col(position = position_stack(reverse = TRUE)) + guides(fill = guide_legend(reverse = TRUE))
+
+ggplot(d2, aes(x = Attack, y = HP, fill = Attack)) + geom_col(position = "fill") + scale_y_continuous(labels = scales::percent)
+
+# using group_by command:
+a2 <- d2 %>%group_by(Attack) %>% mutate(Sp_attack = Attack / sum(Attack) * 100)
+head(a2)
+
+ggplot(d2, aes(x = Attack, y =Sp_attack , fill = Attack)) + geom_col()
+
+ggplot(d2, aes(x = interaction(Attack, HP), y = Defence)) +geom_col() + geom_text(aes(label = Defence), vjust = 1.5, colour = "white")
+
+```
+
